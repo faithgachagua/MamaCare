@@ -1,0 +1,18 @@
+MamaCare
+
+Backend (FastAPI, Python 3.14 via uv):
+  cd mamacare-backend && cp .env.example .env   # set JWT_SECRET_KEY and GROQ_API_KEY
+  uv sync && uv run uvicorn main:app --reload --port 8000
+
+The database is migrated automatically on startup (alembic/). An older database
+made before migrations is upgraded in place. Add a change with:
+  uv run alembic revision --autogenerate -m "what changed"
+Tests:  cd mamacare-backend && uv run pytest
+
+Care circle: a mother invites a partner, family member or doctor from the API
+(POST /api/care/invites). The invite link is /?invite=TOKEN on the frontend.
+
+Frontend (React + Vite):
+  cd mamacare-frontend && npm install
+  npm run dev        # http://localhost:4173, talks to http://127.0.0.1:8000
+  npm run build      # backend also serves ../mamacare-frontend/dist at /

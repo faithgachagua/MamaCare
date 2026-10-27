@@ -1,0 +1,27 @@
+<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="heartShape" d="M100,180 C40,140 0,100 0,60 C0,20 40,0 70,0 C90,0 100,20 100,40 C100,20 110,0 130,0 C160,0 200,20 200,60 C200,100 160,140 100,180 Z"/>
+    <clipPath id="outerClipA">
+      <use href="#heartShape" transform="translate(20,30) scale(1)"/>
+    </clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="240" height="240" rx="54" fill="#3D2FE0"/>
+
+  <g transform="translate(20,28) scale(0.82)">
+    <use href="#heartShape" transform="translate(20,30) scale(1)" fill="#FFFFFF"/>
+    <g clip-path="url(#outerClipA)" stroke="#6C63FF" stroke-width="2.4" fill="none" opacity="0.55" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M44,80 L70,80 L70,58 L98,58"/>
+      <path d="M70,80 L70,100 L90,100"/>
+      <rect x="41" y="77" width="6.5" height="6.5" rx="1.5" fill="#6C63FF" stroke="none"/>
+      <rect x="95" y="55" width="6.5" height="6.5" rx="1.5" fill="#6C63FF" stroke="none"/>
+      <rect x="87" y="97" width="6.5" height="6.5" rx="1.5" fill="#6C63FF" stroke="none"/>
+      <path d="M196,80 L170,80 L170,58 L142,58"/>
+      <path d="M170,80 L170,100 L150,100"/>
+      <rect x="193" y="77" width="6.5" height="6.5" rx="1.5" fill="#6C63FF" stroke="none"/>
+      <rect x="139" y="55" width="6.5" height="6.5" rx="1.5" fill="#6C63FF" stroke="none"/>
+      <rect x="147" y="97" width="6.5" height="6.5" rx="1.5" fill="#6C63FF" stroke="none"/>
+    </g>
+    <use href="#heartShape" transform="translate(78,107.2) scale(0.42)" fill="#FF6B6B"/>
+  </g>
+</svg>
