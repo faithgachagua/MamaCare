@@ -2159,3 +2159,14 @@ img {
 .dose-badge--overdue { background: var(--coral-tint); color: var(--coral-dark); }
 .dose-badge--due { background: #fff3d6; color: #7a5200; }
 .dose-badge--given { background: var(--teal-tint); color: var(--teal-dark); }
+
+/* ── Emergency ───────────────────────────────────────────────── */
+.em-call { background: var(--emergency); color: #fff; border-radius: var(--radius-lg); padding: 24px; margin-bottom: 16px; display: grid; gap: 8px; justify-items: start; }
+.em-call__title { margin: 0; font-family: var(--font-display); font-size: 22px; font-weight: 600; }
+.em-call__text { margin: 0; max-width: 52ch; opacity: .95; }
+.em-call__btn { display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 32px; background: #fff; color: var(--emergency-dark); border-radius: 999px; font-size: 20px; font-weight: 700; text-decoration: none; margin-top: 6px; }
+.em-call__btn:focus-visible, .em-call__alt:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.em-call__alt { color: #fff; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+.em-link { text-align: center; text-decoration: none; justify-content: center; display: inline-flex; align-items: center; }
+.em-share { display: grid; gap: 8px; }
+.em-signs { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
