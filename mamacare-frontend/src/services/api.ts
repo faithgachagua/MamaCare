@@ -309,3 +309,18 @@ export const markDoseGiven = (babyId: string, code: string, givenDate: string) =
   request<Checklist>(`/api/babies/${babyId}/vaccinations/${code}`, { method: 'PUT', body: JSON.stringify({ given_date: givenDate }) });
 export const unmarkDose = (babyId: string, code: string) =>
   request<Checklist>(`/api/babies/${babyId}/vaccinations/${code}`, { method: 'DELETE' });
+
+// ── Account ───────────────────────────────────────────────────────────────
+
+export interface Account {
+  full_name: string;
+  email: string;
+  phone: string | null;
+  role: Role;
+}
+
+export const getAccount = () => request<Account>('/api/account');
+export const updateAccount = (data: { full_name: string; phone?: string }) =>
+  request<Account>('/api/account', { method: 'PATCH', body: JSON.stringify(data) });
+export const changePassword = (current_password: string, new_password: string) =>
+  request<null>('/api/account/password', { method: 'POST', body: JSON.stringify({ current_password, new_password }) });

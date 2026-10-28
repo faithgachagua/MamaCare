@@ -34,6 +34,7 @@ interface AuthContextValue {
   token: string | null;
   login: (user: AuthUser, token: string) => void;
   logout: () => void;
+  updateUser: (patch: Partial<AuthUser>) => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -66,7 +67,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('mamacare-active-session');
   }
 
-  return <AuthContext.Provider value={{ user, token, login, logout }}>{children}</AuthContext.Provider>;
+  function updateUser(patch: Partial<AuthUser>) {
+    setUser((u) => {
+      if (!u) return u;
+      const next = { ...u, ...patch };
+      localStorage.setItem('mc-user', JSON.stringify(next));
+      return next;
+    });
+  }
+
+  return <AuthContext.Provider value={{ user, token, login, logout, updateUser }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

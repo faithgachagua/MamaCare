@@ -37,9 +37,9 @@ const menuItems: Array<{ id: Section; label: string }> = [
 const rolePermissions: Record<Role, Section[]> = {
   mother: menuItems.map((item) => item.id),
   // Everyone but the mother sees what mothers have shared with them, on the dashboard.
-  partner: ['dashboard', 'emergency'],
-  family: ['dashboard', 'emergency'],
-  doctor: ['dashboard', 'emergency'],
+  partner: ['dashboard', 'emergency', 'settings'],
+  family: ['dashboard', 'emergency', 'settings'],
+  doctor: ['dashboard', 'emergency', 'settings'],
   admin: ['settings'],
 };
 
