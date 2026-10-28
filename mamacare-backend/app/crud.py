@@ -7,7 +7,7 @@ from uuid import UUID
 from sqlmodel import select, Session
 
 from .core.roles import STAGE_POSTPARTUM, STAGE_PREGNANT
-from .models import AccessLog, AIMessage, AISession, Baby, CareInvite, ConsentGrant, PregnancyRecord, Symptom, User, Vital
+from .models import AccessLog, AIMessage, AISession, Baby, VaccineDose, CareInvite, ConsentGrant, PregnancyRecord, Symptom, User, Vital
 
 
 def _uuid(value: Union[str, UUID]) -> UUID:
@@ -227,6 +227,16 @@ def create_baby(session: Session, mother_id: Union[str, UUID], data: dict) -> Ba
 def get_babies(session: Session, mother_id: Union[str, UUID]) -> List[Baby]:
     statement = select(Baby).where(Baby.mother_id == _uuid(mother_id)).order_by(Baby.birth_date.desc())
     return list(session.exec(statement).all())
+
+
+def get_baby(session: Session, mother_id: Union[str, UUID], baby_id: Union[str, UUID]) -> Optional[Baby]:
+    baby = session.get(Baby, _uuid(baby_id))
+    return baby if baby and baby.mother_id == _uuid(mother_id) else None
+
+
+def get_given_doses(session: Session, baby_id: Union[str, UUID]) -> dict:
+    rows = session.exec(select(VaccineDose).where(VaccineDose.baby_id == _uuid(baby_id))).all()
+    return {r.vaccine_code: r.given_date for r in rows}
 
 
 # ── Care circle ──────────────────────────────────────────────────────────────

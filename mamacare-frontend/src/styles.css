@@ -2058,3 +2058,104 @@ img {
 
 @media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
 @media (max-width: 860px) { .skeleton-row { grid-template-columns: 1fr; } }
+
+/* ── Phone and tablet shell ──────────────────────────────────────────────── */
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.menu-toggle:focus-visible { outline: 3px solid var(--purple); outline-offset: 2px; }
+.scrim { display: none; }
+
+@media (max-width: 960px) {
+  .menu-toggle { display: inline-flex; margin-left: -8px; }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 60;
+    width: min(300px, 86vw);
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1), visibility 0s linear 0.3s;
+    box-shadow: none;
+  }
+
+  .sidebar.open {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1), visibility 0s;
+    box-shadow: 0 0 40px rgba(31, 27, 58, 0.25);
+  }
+
+  .scrim.show {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    background: rgba(31, 27, 58, 0.45);
+  }
+
+  .topbar { padding: 10px 16px; gap: 10px; }
+  .topbar h1 { flex: 1; font-size: 16px; }
+  .tb-search, .profile-meta, .tb-right .icon-btn { display: none; }
+  .content { padding: 20px 16px 64px; }
+  .row.r1, .row.r2, .row.r3 { grid-template-columns: 1fr; }
+  .hero-top { flex-direction: column; }
+  .hero-status { min-width: 0; max-width: none; width: 100%; }
+  .greeting h1 { font-size: 23px; }
+  .quick-actions { flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar, .sidebar.open { transition: none; }
+}
+
+/* ── Care circle ─────────────────────────────────────────────── */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.scope-picker { border: 0; padding: 0; margin: 4px 0 14px; display: grid; gap: 8px; }
+.scope-opt { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-md); cursor: pointer; min-height: 48px; }
+.scope-opt.on { border-color: var(--teal); background: var(--teal-tint); }
+.scope-opt input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--teal-dark); flex: none; }
+.scope-opt strong { display: block; font-size: 14px; color: var(--ink); }
+.scope-opt small { display: block; font-size: 13px; color: var(--muted); }
+.scope-opt:focus-within { outline: 3px solid var(--purple); outline-offset: 2px; }
+.circle-list { list-style: none; margin: 0; padding: 0; }
+.circle-item { display: flex; justify-content: space-between; gap: 12px; padding: 14px 0; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.circle-item:first-child { border-top: 0; }
+.circle-item--col { flex-direction: column; }
+.circle-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.circle-name { margin: 0; font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
+.circle-meta { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.circle-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.circle-edit { padding: 12px 0 0; }
+.circle-sub { margin: 18px 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.btn-ghost { min-height: 40px; padding: 0 14px; border: 1.5px solid var(--border); background: var(--surface); border-radius: var(--radius-sm); font: inherit; font-size: 14px; color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; }
+.btn-ghost:hover { border-color: var(--teal); }
+.btn-ghost.danger { color: var(--coral-dark); }
+.btn-ghost:focus-visible { outline: 3px solid var(--purple); outline-offset: 2px; }
+.form-error { color: var(--coral-dark); font-size: 14px; margin: 0 0 10px; }
+.shared-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+/* ── Baby and vaccinations ───────────────────────────────────── */
+.baby-wrap { display: grid; gap: 16px; max-width: 760px; }
+.baby-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.dose { padding: 14px 0; border-top: 1px solid var(--border); }
+.dose:first-child { border-top: 0; }
+.dose-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.dose-form { padding-top: 12px; }
+.dose-badge { font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--purple-tint); color: var(--purple-dark); }
+.dose-badge--overdue { background: var(--coral-tint); color: var(--coral-dark); }
+.dose-badge--due { background: #fff3d6; color: #7a5200; }
+.dose-badge--given { background: var(--teal-tint); color: var(--teal-dark); }

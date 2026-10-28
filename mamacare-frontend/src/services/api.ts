@@ -195,8 +195,26 @@ export const updateGrant = (id: string, scopes: Scope[]) =>
   request<Grant>(`/api/care/grants/${id}`, { method: 'PATCH', body: JSON.stringify({ scopes }) });
 export const revokeGrant = (id: string) => request<null>(`/api/care/grants/${id}`, { method: 'DELETE' });
 export const getCircle = () => request<CircleEntry[]>('/api/care/circle');
-export const getSharedSummary = (motherId: string) => request(`/api/care/mothers/${motherId}/summary`);
-export const getAccessLog = () => request('/api/care/access-log');
+
+export interface SharedSummary {
+  mother_id: string;
+  mother_name: string;
+  scopes: Scope[];
+  journey?: { stage: Stage; gestational_age_weeks?: number | null; weeks_postpartum?: number | null; due_date?: string | null; delivery_date?: string | null } | null;
+  symptoms?: Array<{ id: string; symptom_type: string; severity?: number | null; description?: string | null; recorded_at: string }>;
+  vitals?: Array<{ id: string; vital_type: string; value_numeric?: number | null; value_secondary?: number | null; unit?: string | null; recorded_at: string }>;
+  babies?: Array<{ id: string; name?: string | null; birth_date: string; sex?: string | null }>;
+}
+
+export interface AccessLogEntry {
+  viewer_name: string;
+  role: Role | null;
+  scopes: Scope[];
+  accessed_at: string;
+}
+
+export const getSharedSummary = (motherId: string) => request<SharedSummary>(`/api/care/mothers/${motherId}/summary`);
+export const getAccessLog = () => request<AccessLogEntry[]>('/api/care/access-log');
 
 // ── Home, insights and logging ────────────────────────────────────────────
 
@@ -265,3 +283,29 @@ export interface Catalog {
 export const getHome = () => request<Home>('/api/home');
 export const getInsights = () => request<InsightsData>('/api/insights');
 export const getCatalog = () => request<Catalog>('/api/health/catalog');
+
+// ── Vaccinations ──────────────────────────────────────────────────────────
+
+export type DoseStatus = 'given' | 'overdue' | 'due' | 'soon' | 'later';
+
+export interface DoseItem {
+  code: string;
+  name: string;
+  protects_against: string;
+  due_date: string;
+  age_weeks: number;
+  status: DoseStatus;
+  given_date: string | null;
+}
+
+export interface Checklist {
+  baby: Baby;
+  items: DoseItem[];
+  note: string;
+}
+
+export const getVaccinations = (babyId: string) => request<Checklist>(`/api/babies/${babyId}/vaccinations`);
+export const markDoseGiven = (babyId: string, code: string, givenDate: string) =>
+  request<Checklist>(`/api/babies/${babyId}/vaccinations/${code}`, { method: 'PUT', body: JSON.stringify({ given_date: givenDate }) });
+export const unmarkDose = (babyId: string, code: string) =>
+  request<Checklist>(`/api/babies/${babyId}/vaccinations/${code}`, { method: 'DELETE' });

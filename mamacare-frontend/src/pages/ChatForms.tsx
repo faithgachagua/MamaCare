@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { askAi, postSymptom, postVital } from '../services/api';
+import { askAi } from '../services/api';
 
 function ChatForms() {
   const { user } = useAuth();
@@ -44,14 +44,6 @@ function ChatForms() {
     setSessionId(data.session_id);
   }
 
-  async function handleQuickLog(type: 'symptom' | 'vital') {
-    if (type === 'symptom') {
-      await postSymptom({ symptom_type: 'Fatigue', severity: 2, description: 'Tired today, but okay.' });
-    } else {
-      await postVital({ vital_type: 'Blood pressure', value_text: '118 / 76', unit: 'mmHg' });
-    }
-  }
-
   return (
     <div>
       <div className="card">
@@ -79,19 +71,6 @@ function ChatForms() {
             →
           </button>
         </div>
-      </div>
-      <div className="card" style={{ marginTop: 22 }}>
-        <div className="card-head">
-          <div className="card-title">
-            <h3>Daily log quick actions</h3>
-          </div>
-        </div>
-        <button className="btn-block full" type="button" onClick={() => handleQuickLog('symptom')}>
-          Log today&apos;s symptom
-        </button>
-        <button className="btn-block full" type="button" style={{ marginTop: 12 }} onClick={() => handleQuickLog('vital')}>
-          Log today's vital
-        </button>
       </div>
     </div>
   );

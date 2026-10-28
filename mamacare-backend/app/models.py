@@ -105,6 +105,16 @@ class Baby(SQLModel, table=True):
     created_at: datetime = Field(default_factory=utcnow)
 
 
+class VaccineDose(SQLModel, table=True):
+    """A dose the mother has recorded as given."""
+
+    id: UUID = Field(default_factory=uuid4, primary_key=True, index=True)
+    baby_id: UUID = Field(foreign_key="baby.id", index=True)
+    vaccine_code: str
+    given_date: date
+    created_at: datetime = Field(default_factory=utcnow)
+
+
 class CareInvite(SQLModel, table=True):
     """A mother's invitation for someone to join her care circle."""
 

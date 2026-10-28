@@ -14,21 +14,32 @@ function Topbar({
   roleLabel,
   userName,
   onLogout,
+  menuOpen,
+  onMenu,
 }: {
   title: string;
   roleLabel: string;
   userName: string;
   onLogout: () => void;
+  menuOpen: boolean;
+  onMenu: () => void;
 }) {
   const [dropOpen, setDropOpen] = useState(false);
 
   return (
     <header className="topbar">
-      <div className="menu-toggle">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <button
+        type="button"
+        className="menu-toggle"
+        aria-label="Open menu"
+        aria-controls="sidebar"
+        aria-expanded={menuOpen}
+        onClick={onMenu}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
           <path d="M3 6h18M3 12h18M3 18h18" strokeLinecap="round" />
         </svg>
-      </div>
+      </button>
       <h1>{title}</h1>
       <div className="tb-search">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
